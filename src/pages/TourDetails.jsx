@@ -20,17 +20,17 @@ const TourDetails = () => {
 
   //destructre propertise from tour objects
 
-  const {
-    photo,
-    title,
-    desc,
-    price,
-    address,
-    reviews,
-    city,
-    distance,
-    maxGroupSize,
-  } = tour;
+ const {
+   photo,
+   title,
+   desc,
+   price,
+   address,
+   reviews = [],
+   city,
+   distance,
+   maxGroupSize,
+ } = tour || {};
 
   const { totalRating, avgRating } = calculateAvgRating(reviews);
 
@@ -40,14 +40,13 @@ const TourDetails = () => {
   //submit request to server
 
   const submitHandler = (e) => {
-    e.preventDefault();
-    const reviewText = reviewMsgRef.current.value;
-
-    //call api
-  };
+  e.preventDefault();
+  const reviewText = reviewMsgRef.current?.value;
+  if (!reviewText) return;
+  }
 
   useEffect(()=>{
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   },[tour])
 
   return (
@@ -103,7 +102,7 @@ const TourDetails = () => {
                   </div>
                   {/* Tour Review starts */}
                   <div className="tour__reviews mt-4">
-                    <h4>Reviews ({reviews?.length} reviews) </h4>
+                    <h4>Reviews ({reviews ? reviews.length : 0} reviews)</h4>
                     <Form onSubmit={submitHandler}>
                       <div className="d-flex align-items-center gap-3 mb-4 rating__group">
                         <span onClick={() => setTourRating(1)}>
@@ -143,29 +142,29 @@ const TourDetails = () => {
                       </div>
                     </Form>
                     <ListGroup className="user__reviews">
-                      {reviews?.map((review) => (
-                        <div className="review__item">
-                          <img src={avatar} alt="" />
-
-                          <div className="w-100">
-                            <div className="d-flex align-items-center justify-content-between">
-                              <div>
-                                <h5>Kavindu</h5>
-                                <p>
-                                  {new Date("07-07-2024").toLocaleDateString(
-                                    "en-US",
-                                    options
-                                  )}
-                                </p>
+                      {reviews &&
+                        reviews.map((review) => (
+                          <div className="review__item">
+                            <img src={avatar} alt="" />
+                            <div className="w-100">
+                              <div className="d-flex align-items-center justify-content-between">
+                                <div>
+                                  <h5>Kavindu</h5>
+                                  <p>
+                                    {new Date("07-07-2024").toLocaleDateString(
+                                      "en-US",
+                                      options
+                                    )}
+                                  </p>
+                                </div>
+                                <span className="d-flex align-items-center">
+                                  5 <i className="ri-star-s-fill"></i>
+                                </span>
                               </div>
-                              <span className="d-flex align-items-center">
-                                5 <i class="ri-star-s-fill"></i>
-                              </span>
+                              <h6>Amazing Tour</h6>
                             </div>
-                            <h6>Amazing Tour</h6>
                           </div>
-                        </div>
-                      ))}
+                        ))}
                     </ListGroup>
                   </div>
                   {/* Tour Review ends */}
