@@ -1,3 +1,33 @@
+.hero-section {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh; /* Ensures full viewport height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Adjust transparency */
+  z-index: -1;
+}
+
 .hero__subtitle img {
   width: 2.3rem;
   height: 2.3rem;
@@ -17,7 +47,7 @@
 
 .hero__content p {
   font-size: 1.1rem;
-  color: var(--text-color);
+  color: #FD652D;
   line-height: 2rem;
 }
 
@@ -117,6 +147,16 @@
 }
 
 @media only screen and (max-width: 992px) {
+  .hero-section {
+    height: auto; /* Allow content to adjust height */
+    padding: 2rem 0;
+    flex-direction: column; /* Stack content vertically */
+  }
+
+  .video-bg {
+    height: 100%; /* Ensure the video covers the viewport */
+  }
+
   .hero__content h1 {
     font-size: 2.7rem;
   }
@@ -145,6 +185,11 @@
 }
 
 @media only screen and (max-width: 576px) {
+
+   .hero-section {
+    padding: 1.5rem 1rem;
+  }
+  
   .hero__content h1 {
     font-size: 1.8rem;
   }
